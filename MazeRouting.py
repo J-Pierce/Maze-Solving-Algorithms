@@ -1,5 +1,15 @@
 import Utils
 
+def setup():
+    if get_entity_type() != Entities.Bush:
+        harvest()
+    if get_ground_type() == Grounds.Soil:
+        till()
+    plant(Entities.bush)
+    while can_harvest() == False: 
+        Utils.water()
+    use_item(Items.Weird_Substance, get_world_size()*num_unlocked(Unlocks.Mazes))
+
 def tremauxs():
     places ={}
     testOrder={North:[West,North,East,South],East:[North,East,South,West],South:[East,South,West,North],West:[South,West,North,East],}
@@ -20,16 +30,6 @@ def tremauxs():
         newTest.pop(0)
         places[location] = newTest
     
-def setup():
-    if get_entity_type() != Entities.Bush:
-        harvest()
-    if get_ground_type() == Grounds.Soil:
-        till()
-    plant(Entities.bush)
-    while can_harvest() == False: 
-        Utils.water()
-    use_item(Items.Weird_Substance, get_world_size()*num_unlocked(Unlocks.Mazes))
-
 def optimalLine(vert,horz):
     if vert == 0:
         if horz > 0:
@@ -49,8 +49,6 @@ def optimalLine(vert,horz):
         return "DownLeft"
     else:
         return "LeftUp"
-            
-   
 
 def mazeRouting():
     goal_x,goal_y = measure()
